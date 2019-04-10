@@ -2,14 +2,28 @@
 
 ### Overview
 
-This guide includes detailed information on the Direct Publisher Feed Specification, which can be used to build a content feed that includes movies, series, TV Specials, and/or short-form videos.
 
-Initially, a JSON format will be supported that follows the JSON-Schema Draft 4. All the properties in the schema are **case sensitive**.
+This specification describes the feed required for your channel\'s
+content catalog. A catalog is the set of movies, series, TV specials,
+short-form videos or linear stream your channel provides, along with the
+artwork that represents it in the UI. A catalog feed includes
+the metadata that describes each asset so Roku can index it, identify
+its streaming URL, categorize it, and present it to users.
 
-Before submitting a feed, make sure it is a valid JSON file. You can easily do that by using an IDE, or free online tools like [JSON Scheme Validator](http://www.jsonschemavalidator.net/) or [JSON Schema Linter](http://jsonschemalint.com/draft4/).
+This feed spec adheres to JSON-Schema Draft 4. All the properties in the
+schema are case sensitive. 
+
+Before submitting a feed, make sure it is a valid JSON file. You can do
+that by using an IDE or free online tools, such as [JSON Schema
+Validator](https://www.jsonschemavalidator.net/) or [JSON Schema
+Lint](https://jsonschemalint.com).
+
+For guidelines about presenting your channel, see [Content
+Specification](https://developer.roku.com/publish/content-specifications/content-spec-index).
 
 **Sections:**
 * [Direct Publisher Feed Schema](#direct-publisher-feed-schema)
+* [Artwork for All Content](#artwork-for-all-content)
 
 **Content types:**
 * [movie](#movie)
@@ -83,8 +97,36 @@ Direct Publisher Feed Root Object Example:
     ]
 }
 ```
+------------------------------------------------------------------------
+## Artwork for All Content
 
----
+For each piece of content Roku supports three types of artwork: key art, background art, and box cover. Each image type will be used in a different location within the Roku Channel.
+
+Each image must be delivered in the JPEG format (.jpg file extension). 
+
+Roku prefers to receive all art sizes whenever possible. All three image types are preferred. At a minimum, for a movie and a series Roku requires key art or box cover. 
+
+Image Type|Description|Resolution|Aspect Ratio|Required/Optional
+-----|-----|-----|-----|-----
+key art|Image with title treatment|1920x1080|16:09|Movie: Required<br/>Series: Required
+background|Textless image used in background of program page|1920x1080|16:09|Movie: Optional<br/>Series: Optional
+box cover|Vertical poster image with title treatment|2000x3000|2:03|Movie: Optional<br/> Series: Optional
+
+### Artwork Content Guidelines
+--------------------------------------------------------
+
+- Key art (graphic with the full title of the asset visible)
+- No sexually explicit or graphically violent artwork
+- Artwork should be post-theatrical and not include language such as "In Theaters Now" or "Coming Soon"
+- Artwork designed specifically for digital delivery is preferred
+- Artwork for international territories should be localized for each territory
+
+Object Example:
+```xml
+thumbnail: "http://thumbnail.jpg",
+thumbnailBoxcover: "http://thumbnailBoxcover.jpg",
+backgroundImage: "http://backgroundImage.jpg"
+```
 
 ## movie
 Child object of root property `movies`.
