@@ -25,7 +25,7 @@ Specification](https://developer.roku.com/publish/content-specifications/content
 * [Direct Publisher Feed Schema](#direct-publisher-feed-schema)
 * [Artwork for All Content](#artwork-for-all-content)
 
-**Content types:**
+**Content types:**(#content-types)
 * [movie](#movie)
 * [series](#series)
  * [season](#season)
@@ -113,7 +113,6 @@ background|Textless image used in background of program page|1920x1080|16:09|Mov
 box cover|Vertical poster image with title treatment|2000x3000|2:03|Movie: Optional<br/> Series: Optional
 
 ### Artwork Content Guidelines
---------------------------------------------------------
 
 - Key art (graphic with the full title of the asset visible)
 - No sexually explicit or graphically violent artwork
@@ -127,51 +126,74 @@ thumbnail: "http://thumbnail.jpg",
 thumbnailBoxcover: "http://thumbnailBoxcover.jpg",
 backgroundImage: "http://backgroundImage.jpg"
 ```
+# Content Types
 
-## movie
+## movie Content Type
 Child object of root property `movies`.
 
 This object represents a movie object.
 
-| Field | Type | Required | Description |
-| ----- | ---- | -------- | ----------- |
-| id | string | Required | Your immutable string reference ID for the movie. THIS CANNOT CHANGE. This should serve as a unique identifier for the movie across different locales.
-| title | string | Required | Movie title. We use this value for matching in Roku Search. Please use plain text and don’t include extra information like year, version label, etc.
-| content | [Content Object](#content) | Required | The actual video content, such as the URL of the video file, subtitles, etc.
-| genres | string | Required | The genre(s) of the movie. Must be one of the values listed in [Genres](#genres).
-| thumbnail | string | Required | The URL of the thumbnail for the movie. This is used within your channel and in search results. Image dimensions must be at least 800x450 (width x height, 16x9 aspect ratio).
-| releaseDate | string | Required | The date the movie was initially released or first aired. Used to sort programs chronologically and grouping related content in Roku Search. Conforms to the [ISO 8601](http://www.iso.org/iso/home/standards/iso8601.htm) format: {YYYY}-{MM}-{DD}. E.g.: 2015-11-11
-| shortDescription | string | Required | A movie description that does not exceed 200 characters. The text will be clipped if longer.
-| longDescription | string | Optional | A longer movie description that does not exceed 500 characters. The text will be clipped if longer. Must be different from shortDescription.
-| tags | string | Optional | One or more tags (e.g., “dramas”, “korean”, etc.). Each tag is a string and is limited to 20 characters. Tags are used to define what content will be shown within a [category](#category).
-| credits | [Credit Object](#credit) | Optional | One or more credits. The cast and crew of the movie.
-| rating | [Rating Object](#rating) | Optional | A parental rating for the content.
-| externalIds | [External ID Object](#externalid) | Optional | One or more third-party metadata provider IDs.
+#### **Movie Ad Guidelines**
+
+- No adBreaks should be listed during the first 10 minutes of playback
+    -- No pre-roll
+- Noted adBreaks should occur during natural scene breaks
+- 10 mins or more between each adBreak
+- No adBreaks within 8 minutes of end credits.
+
+Field|Type|Required|Description
+-----|-----|-----|-----
+id|string|Required|Your immutable string reference ID for the movie. THIS CANNOT CHANGE. This should serve as a unique identifier for the movie across different locales.
+ | | |Note: The ID for an asset must not exceed 50 characters.
+title|string|Required|Movie title. Roku uses this value for matching in Roku Search. Please use plain text and don’t include extra information like year, version label, etc.
+content|[Content Object](#content)|Required|The actual video content, such as the URL of the video file, subtitles, etc.
+genres|string|Required|The genre(s) of the movie. Must be one of the values listed in genres.
+thumbnail|string|Required|The URL of the thumbnail for the movie. This is used within your channel and in search results. Image dimensions must be at least 800x450 (width x height, 16x9 aspect ratio).
+ | | |Landscape key art and portrait box cover graphics with the full title of the asset visible in a JPEG file. Image dimensions should be 1920x1080 preferred (width x height, 16x9 aspect ratio) for landscape key art and 532px by 800px preferred (width x height, 2x3 aspect ratio) for portrait box cover.
+releaseDate|string|Required|The date the movie was initially released or first aired. Used to sort programs chronologically and grouping related content in Roku Search. Conforms to the [ISO 8601](http://www.iso.org/iso/home/standards/iso8601.htm) format: {YYYY}-{MM}-{DD}. E.g.: 2015-11-11
+shortDescription|string|Required|A movie description that does not exceed 200 characters. The text will be clipped if longer.
+longDescription|string|Required|A longer movie description that does not exceed 500 characters. The text will be clipped if longer. Must be different from shortDescription.
+tags|string|Optional|One or more tags (e.g., “dramas”, “korean”, etc.). Each tag is a string and is limited to 20 characters. Tags are used to define what content will be shown within a [category](#category).
+credits|[Credit Object](#credit)|Optional|One or more credits. The cast and crew of the movie.
+rating|[Rating Object](#rating)|Required|A parental rating for the content.
+externalIds|[External ID Object](|Optional|One or more third-party metadata provider IDs.
+
+#### Kids Directed Content
+
+You may NOT submit or distribute content that is directed to children
+unless you have Roku's express written approval. 
+
+If Roku has provided such approval then the following additional
+obligations apply:
+
+Field	Type	Required	Description
+tags	string	Required	Include a "kidsdirected" tag into the tags string *all lowercase*
+rating	Rating Object	Required	A parental rating for the content. (MPAA or TV Rating).<br/> - 'Unrated' and "Not Rated" are not accepted ratings for kids directed content
 
 Movie Object Example:
 
 ```json
-{
-    "id": "1509428502952",
-    "title": "Sample Movie",
-    "content": {
-        ...
-    },
-    "genres": [
-        "drama",
-        "comedy",
-        "horror"
-    ],
-    "thumbnail": "https://example.org/cdn/thumbnails/1509428502952/1",
-    "releaseDate": "2016-01-01",
-    "shortDescription": "Incredible movie description",
-    "longDescription": "Even more incredible and longer movie description",
-    "tags": [
-        "amazing",
-        "drama",
-        "comedy",
-        "horror"
-    ]
+{  
+   "id":"1509428502952",
+   "title":"Sample Movie",
+   "content":{  
+      ...
+   },
+   "genres":[  
+      "drama",
+      "comedy",
+      "horror"
+   ],
+   "thumbnail":"https://example.org/cdn/thumbnails/1509428502952/1",
+   "releaseDate":"2016-01-01",
+   "shortDescription":"Incredible movie description",
+   "longDescription":"Even more incredible and longer movie description",
+   "tags":[  
+      "amazing",
+      "drama",
+      "comedy",
+      "horror"
+   ]
 }
 ```
 
