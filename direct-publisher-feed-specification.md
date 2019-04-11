@@ -134,10 +134,10 @@ Child object of root property `movies`.
 
 This object represents a movie object.
 
-#### **Movie Ad Guidelines**
+### **Movie Ad Guidelines**
 
 - No adBreaks should be listed during the first 10 minutes of playback
-    -- No pre-roll
+  - No pre-roll
 - Noted adBreaks should occur during natural scene breaks
 - 10 mins or more between each adBreak
 - No adBreaks within 8 minutes of end credits.
@@ -157,7 +157,7 @@ credits|[Credit Object](#credit)|Optional|One or more credits. The cast and crew
 rating|[Rating Object](#rating)|Required|A parental rating for the content.
 externalIds|[External ID Object](|Optional|One or more third-party metadata provider IDs.
 
-#### Kids Directed Content
+### Kids Directed Content
 
 You may NOT submit or distribute content that is directed to children
 unless you have Roku's express written approval. 
@@ -245,6 +245,72 @@ liveFeed Object Example:
    ]
 }
 ```
+Live Feed Stream Rendition Requirements:
+
+Target| | 
+-----|-----|-----
+Rendition|Resolution|Bitrate
+1|384 x 216|230 Kbps
+2|384 x 216|440 Kbps
+3|512 x 288|700 Kbps
+4|720 x 404|1.2 Mbps
+5|1280 x 720|2.5 Mbps
+6|1920 x 1080|5 Mbps
+
+Category|Required/ Recommended|Requirement
+-----|-----|-----
+Bitrate Ladder|Required|Minimum five different renditions 
+Resolution|Required|Minimum three different resolutions 
+Aspect Ratio|Required|Resolutions must remain the same across bit rates when switching / adapting
+Segment Duration|Required|6 seconds each
+Segment Live Window|Required|6 segments
+Codec Standard|Required|H.264, Main Profile @ level 4.1 or lower
+Audio Codec Standard|Required |AAC Two Channel Stereo
+Audio Bitrate|Required|*Set the audio sampling at a single rate regardless of bitrate. The recommended rate is 48KHz.*
+Failover / Backup Server|Recommended |A secondary / backup server for each bitrate
+
+### Live Feed Ad Guidelines
+- Partners must accept Roku ad tags, which are VAST/VMAP 2.0 and higher compliant
+- Partners should not serve any ads in the channel other than the ones returned by the Roku tag, unless explicitly agreed in the contract.
+- Partners should adhere to the below ad length requirements:
+  - Maximum 8 minutes of ads per hour
+  - Maximum 2 minutes pod length
+  - No more than 4 ads per pod
+  - Flexibility around the ad policy is provided during live sporting events. Please discuss this with your Roku rep.
+
+#### Passing Ad Parameters
+
+Roku requires the following parameters be sent in every SSAI ad request. Some of them are sent in the initial stream request as URL parameters but others needs to be extracted from the stream. Example URL with parameters:
+
+http://<stream-url>?rdid=deviceid1234&is_lat=1
+    
+Parameter|Description|URL Key|Provided in the initial stream request?
+-----|-----|-----|-----
+Client IP|IP address of the client|ip|Yes, should be available in the request header
+Device ID|ID of the device|rdid|yes
+COPPA Flag|Flag to indicate children content|coppa|yes, but should be replaced with the information from the stream, if available
+Limit Ad Tracking|Flag to limit ad tracking|Is\_lat|yes
+User Agent|User Agent|ua|yes
+Content ID|ID of the content being streamed|content|no
+Genre|Comma separated value of the genre of the content|genre|yes, but should be replaced with the information from the stream, if available
+Platform Type|Type of platform (Roku, Web, Samsung etc.)|platform|yes
+Content Type|Type of content (Movies, Series etc.)|content\_type|yes, but should be replaced with the information from the stream, if available
+Content Rating|Rating of the content (R, PG etc.)|content\_rating|yes, but should be replaced with the information from the stream, if available 
+
+*\*\*Do not include pixels, third-party tags, or Software Development Kits of any kind without express prior written approval and certification by Roku.*
+
+### Kids Directed Content
+
+You may NOT submit or distribute content that is directed to children
+unless you have Roku's express written approval. 
+
+If Roku has provided such approval then the following additional
+obligations apply:
+
+Field|Type|Required|Description
+-----|-----|-----|-----
+tags|string|Required|Include a "kidsdirected" tag into the tags string *all lowercase*
+rating|Rating Object|Required|A parental rating for the content. (MPAA or TV Rating).<br/>- 'Unrated' and "Not Rated" are not accepted ratings for kids directed content
 
 ---
 
