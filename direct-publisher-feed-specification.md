@@ -26,25 +26,25 @@ Specification](https://developer.roku.com/publish/content-specifications/content
 * [Artwork for All Content](#artwork-for-all-content)
 
 **Content types:**(#content-types)
-* [movie](#movie-content-type)
-* [live feed](#liveFeed-content-type)
-* [series](#series-content-type)
- * [season](#season-content-type)
- * [episode](#episode-content-type)
-* [shortFormVideo](#shortformvideo-content-type)
-* [tvSpecial](#tvspecial-content-type)
+* [movie](#movie)
+* [live feed](#liveFeed)
+* [series](#series)
+ * [season](#season)
+ * [episode](#episode)
+* [shortFormVideo](#shortformvideo)
+* [tvSpecial](#tvspecial)
 
 **Content properties:**
 * [content](#content-properties)
- * [video](#video-property)
- * [caption](#caption-property)
- * [trickPlayFile](#trickplayfile-property)
-* [genres](#genres-property)
-* [externalId](#externalid-property)
-* [rating](#rating-property)
- * [Parental Ratings](#parental-ratings-property)
- * [Rating Sources](#rating-sources-property)
-* [credit](#credit-property)
+ * [video](#video)
+ * [caption](#caption)
+ * [trickPlayFile](#trickplayfile)
+* [genres](#genres)
+* [externalId](#externalid)
+* [rating](#rating)
+ * [Parental Ratings](#parental-ratings)
+ * [Rating Sources](#rating-sources)
+* [credit](#credit)
 
 ---
 
@@ -125,7 +125,7 @@ backgroundImage: "http://backgroundImage.jpg"
 ```
 # Content Types
 
-## movie Content Type
+## movie
 Child object of root property `movies`.
 
 This object represents a movie object.
@@ -195,7 +195,7 @@ Movie Object Example:
 
 ---
 
-## liveFeed Content Type
+## liveFeed
 
 Child object of root property liveFeeds. 
 
@@ -308,7 +308,7 @@ rating|Rating Object|Required|A parental rating for the content. (MPAA or TV Rat
 
 ---
 
-## series Content Type
+## series
 Child object of root property `series`.
 
 This object represents a series, such as a season of a TV Show or a mini-series.
@@ -385,7 +385,7 @@ Series Object Example (mini-series):
 
 ---
 
-## season Content Type
+## season
 Child object of property `series` -> `seasons`.
 
 This object represents a single season of a series.
@@ -409,7 +409,7 @@ Season Object Example:
 
 ---
 
-### episode
+## episode
 Child object of property:
 
 * `series` -> `episodes`
@@ -478,7 +478,7 @@ Episode Object Example:
 
 ---
 
-## shortFormVideo Content Type
+## shortFormVideo
 
 Child object of root property `shortFormVideos`.
 
@@ -520,7 +520,7 @@ Short-form Video Object Example:
 
 ---
 
-## tvSpecial Content Type
+## tvSpecial
 Child object of root property `tvSpecials`.
 
 ### **tvSpecial Ad Guidelines**
@@ -616,7 +616,7 @@ Content Object Example:
 
 ---
 
-### video Property
+### video
 Child object of property `content` -> `videos`.
 
 This object represents the details of a single video file. Preferred `videoType` format is **HLS**, **DASH** at minimum.
@@ -624,25 +624,8 @@ This object represents the details of a single video file. Preferred `videoType`
 | Field | Type | Required | Description |
 | ----- | ---- | -------- | ----------- |
 | url | string | Required | The URL of the video itself. The video should be served from a CDN (Content Distribution Network). Supported formats are described in [Audio and Video Support](https://sdkdocs.roku.com/display/sdkdoc/Audio+and+Video+Support).
-| quality | enum | Required | Must be one of the following:<ul><li>HD – 720p</li><li>FHD – 1080p</li><li>UHD – 4K</li></ul>If your stream uses an adaptive bitrate, set the quality to the highest available. Provide at least six profiles of video quality with the bitrate ranging from 192 to at least 4000. Roku needs the low end to support mobile/web playback and also recommends the high end in the 5000 range to support 4k TVs. The ideal bitrate ladder is included below, along with resolutions:<br/><br/> Resolution|Bitrate (video + audio)
------|-----
-1920 x 1080|5800
-1920 x 1080|4300
-1280 x 720|3500
-1280 x 720|2750
-720x404|1750
-720x404|1100
-512x288|700
-384x216|400
-384x216|192
-| videoType | enum | Required | Must be one of the following:<ul><li>HLS</li><li>SMOOTH</li><li>DASH</li></ul><br/><br/>*\*\* Please note that provide videos will need to be unencrypted as there is no encryption support:*<br/>_Audio_:
-- At minimum, 1st track of Stereo
-- Preferably with a 2nd track of Dolby (optional)
-
-Audio:
-
-At minimum, 1st track of Stereo
-Preferably with a 2nd track of Dolby (optional)
+| quality | enum | Required | Must be one of the following:<ul><li>HD – 720p</li><li>FHD – 1080p</li><li>UHD – 4K</li></ul>If your stream uses an adaptive bitrate, set the quality to the highest available. Provide at least six profiles of video quality with the bitrate ranging from 192 to at least 4000. Roku needs the low end to support mobile/web playback and also recommends the high end in the 5000 range to support 4k TVs. The ideal bitrate ladder is included below, along with resolutions:<br/><br/> _Resolution; Bitrate (video + audio)_<br/><ul><li>1920 x 1080; 5800</li><li>1920 x 1080; 4300</li><li>1280 x 720; 3500</li><li>1280 x 720; 2750</li><li>720x404; 1750</li><li>720x404; 1100</li><li>512x288; 700</li><li>384x216; 400</li><li>384x216; 192</li></ul>
+| videoType | enum | Required | Must be one of the following:<ul><li>HLS</li><li>SMOOTH</li><li>DASH</li></ul><br/><br/>*\*\* Please note that provide videos will need to be unencrypted as there is no encryption support:*<br/>_Audio_:<ul><li>At minimum, 1st track of Stereo</li><li>Preferably with a 2nd track of Dolby (optional)</li></ul><br/>Audio:
 
 Video Object Example:
 
@@ -656,10 +639,15 @@ Video Object Example:
 
 ---
 
-### caption Property
+### caption
 Child object of property `content` -> `captions`.
 
 This object represents a single video caption file of a video content. The supported formats are described in [Closed Caption / Subtitle Support](https://sdkdocs.roku.com/display/sdkdoc/Closed+Caption+Support).
+
+_Preferred Closed Caption formats:_
+
+- WebVTT
+- SRT
 
 | Field | Type | Required | Description |
 | ----- | ---- | -------- | ----------- |
@@ -679,7 +667,7 @@ Caption File Object Example:
 
 ---
 
-### trickPlayFile Property
+### trickPlayFile
 Child object of property `content` -> `trickPlayFiles`.
 
 This object represents a single trickplay file. Trickplay files are the images shown when a user scrubs through a video, either fast-forwarding or rewinding. The file must be in the Roku BIF format, as described in [Trick Mode Support](https://sdkdocs.roku.com/display/sdkdoc/Trick+Mode+Support).
@@ -700,7 +688,7 @@ Trickplay File Object Example:
 
 ---
 
-## Genres Property
+## genres
 
 The following genres are supported:
 
@@ -739,7 +727,7 @@ The following genres are supported:
 
 ---
 
-## externalId Property
+## externalIds
 Child object of property:
 
 * `movie`
@@ -767,7 +755,7 @@ External ID Object Example:
 
 ---
 
-## rating Property
+## rating
 Child object of property:
 
 * `movie`
@@ -840,7 +828,7 @@ These are the accepted values for the `ratingSource` property followed by their 
 
 ---
 
-## credit Property
+## credit
 Child object of property:
 
 * `movie`
@@ -871,6 +859,7 @@ This object represents a single person in the credits of a video content.
 
 ## Change Log
 
+* **2019-04-15** - Added `liveFeed` Content Type
 * **2017-05-02** - Updated enumerations for `role` within a `credit` object
 * **2016-08-18** - Removed UHD as an option from trickPlayFile -> quality.
 * **2016-08-11** - Added SD to the qualities available for `video` -> `quality`. Updated `shortFormVideo`, `releaseDate` is now a required property.
