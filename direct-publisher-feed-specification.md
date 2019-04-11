@@ -26,12 +26,13 @@ Specification](https://developer.roku.com/publish/content-specifications/content
 * [Artwork for All Content](#artwork-for-all-content)
 
 **Content types:**(#content-types)
-* [movie](#movie)
-* [series](#series)
- * [season](#season)
- * [episode](#episode)
-* [shortFormVideo](#shortformvideo)
-* [tvSpecial](#tvspecial)
+* [movie](#movie-content-type)
+* [live feed](#liveFeed-content-type)
+* [series](#series-content-type)
+ * [season](#season-content-type)
+ * [episode](#episode-content-type)
+* [shortFormVideo](#shortformvideo-content-type)
+* [tvSpecial](#tvspecial-content-type)
 
 **Content categorization:**
 * [category](#category)
@@ -192,6 +193,55 @@ Movie Object Example:
       "drama",
       "comedy",
       "horror"
+   ]
+}
+```
+
+---
+
+## liveFeed Content Type
+
+Child object of root property liveFeeds. 
+
+This object represents a live linear stream. Please contact your Roku representative if you want to create a channel that streams live linear content.
+
+Field|Type|Required|Description
+-----|-----|-----|-----
+id|string|Required|Your immutable string reference ID for the live linear stream. THIS CANNOT CHANGE. This should serve as a unique identifier for the live stream across different locales.<br/> **Note**: The ID for an asset must not exceed 50 characters.
+title|string|Required|The live stream's title. Roku uses this value for matching in Roku Search. Please don’t include extra information like year, version label, etc.
+content|[Content Object](#content)|Required|The stream's actual live HLS stream, in the form of a URL. 
+thumbnail|string|Required|The URL of the primary thumbnail for the live stream. This is used within your channel and in search results. Image dimensions must be at least 800x450 (width x height, 16x9 aspect ratio).
+ | | |Landscape key art and portrait box cover graphics with the full title of the asset visible in a JPEG file. Image dimensions must be 1920x1080 (width x height, 16x9 aspect ratio) for landscape key art and 532px by 800px (width x height, 2x3 aspect ratio) for portrait box cover.
+brandedThumbnail|string|Required|The URL of the secondary thumbnail for the live stream. This is used as a backup in the event that the primary image is not suitable. Image dimensions must be at least 800x450 (width x height, 16x9 aspect ratio).
+ | | |Landscape key art and portrait box cover graphics with the full title of the asset visible in a JPEG file. Image dimensions must be 1920x1080 (width x height, 16x9 aspect ratio) for landscape key art and 532px by 800px (width x height, 2x3 aspect ratio) for portrait box cover.
+shortDescription|string|Required|A live stream description that does not exceed 200 characters. The text will be clipped if longer.
+longDescription|string|Required|A longer live stream description that does not exceed 500 characters. The text will be clipped if longer. Must be different from shortDescription.
+tags|string|Optional|One or more tags (e.g., “dramas”, “korean”, etc.). Each tag is a string and is limited to 20 characters. Tags are used to define what content will be shown within a category and to find content for content curation purposes.
+validityPeriodStart|string|Optional|The date when the content should become available in the [ISO 8601](http://www.iso.org/iso/home/standards/iso8601.htm)  format: {YYYY}-{MM}-{DD}T{hh}:{mm}:{ss}+{TZ}. E.g.: 2018-11-11T22:21:37+00:00
+validityPeriodEnd|string|Optional|The date when the content is no longer available in the [ISO 8601](http://www.iso.org/iso/home/standards/iso8601.htm)  format: {YYYY}-{MM}-{DD}T{hh}:{mm}:{ss}+{TZ}. E.g.: 2018-11-11T22:21:37+00:00
+rating|Rating Object](#rating)|Optional|A parental rating for the content.
+genres|string|Optional|The genre(s) of the event. Must be one of the values listed in genres.
+
+liveFeed Object Example:
+
+```json
+{  
+   "id":"1509428502953",
+   "title":"Sample Stream",
+   "content":{  
+      ...
+   },
+   "language":{  
+      "en"
+   },
+   "thumbnail":"https://example.org/cdn/thumbnails/1509428502952/1",
+   "brandedThumbnail":"https://example.org/cdn/thumbnails/1509428502952/1",
+   "shortDescription":"A live description",
+   "longDescription":"A longer description of a live stream",
+   "tags":[  
+      "linear",
+      "news",
+      "celebrity"
    ]
 }
 ```
