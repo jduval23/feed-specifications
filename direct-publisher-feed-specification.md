@@ -27,7 +27,7 @@ Specification](https://developer.roku.com/publish/content-specifications/content
 
 **Content types:**(#content-types)
 * [movie](#movie)
-* [live feed](#liveFeed)
+* [liveFeed](#liveFeed)
 * [series](#series)
  * [season](#season)
  * [episode](#episode)
@@ -40,7 +40,7 @@ Specification](https://developer.roku.com/publish/content-specifications/content
  * [caption](#caption)
  * [trickPlayFile](#trickplayfile)
 * [genres](#genres)
-* [externalId](#externalid)
+* [externalIds](#externalid)
 * [rating](#rating)
  * [Parental Ratings](#parental-ratings)
  * [Rating Sources](#rating-sources)
@@ -197,7 +197,7 @@ Movie Object Example:
 
 ## liveFeed
 
-Child object of root property liveFeeds. 
+Child object of root property `liveFeeds`. 
 
 This object represents a live linear stream. Please contact your Roku representative if you want to create a channel that streams live linear content.
 
