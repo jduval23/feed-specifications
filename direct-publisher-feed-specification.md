@@ -625,7 +625,7 @@ This object represents the details of a single video file. Preferred `videoType`
 | ----- | ---- | -------- | ----------- |
 | url | string | Required | The URL of the video itself. The video should be served from a CDN (Content Distribution Network). Supported formats are described in [Audio and Video Support](https://sdkdocs.roku.com/display/sdkdoc/Audio+and+Video+Support).
 | quality | enum | Required | Must be one of the following:<ul><li>HD – 720p</li><li>FHD – 1080p</li><li>UHD – 4K</li></ul>If your stream uses an adaptive bitrate, set the quality to the highest available. Provide at least six profiles of video quality with the bitrate ranging from 192 to at least 4000. Roku needs the low end to support mobile/web playback and also recommends the high end in the 5000 range to support 4k TVs. The ideal bitrate ladder is included below, along with resolutions:<br/><br/> _Resolution; Bitrate (video + audio)_<br/><ul><li>1920 x 1080; 5800</li><li>1920 x 1080; 4300</li><li>1280 x 720; 3500</li><li>1280 x 720; 2750</li><li>720x404; 1750</li><li>720x404; 1100</li><li>512x288; 700</li><li>384x216; 400</li><li>384x216; 192</li></ul>
-| videoType | enum | Required | Must be one of the following:<ul><li>HLS</li><li>SMOOTH</li><li>DASH</li></ul><br/><br/>*\*\* Please note that provide videos will need to be unencrypted as there is no encryption support:*<br/>_Audio_:<ul><li>At minimum, 1st track of Stereo</li><li>Preferably with a 2nd track of Dolby (optional)</li></ul><br/>Audio:
+| videoType | enum | Required | Must be one of the following:<ul><li>HLS</li><li>SMOOTH</li><li>DASH</li></ul><br/>*\*\* **Note:** Provided videos will need to be unencrypted as there is no encryption support:*<br/>__Audio__:<ul><li>At minimum, 1st track of Stereo</li><li>Preferably with a 2nd track of Dolby (optional)</li></ul><br/>
 
 Video Object Example:
 
@@ -644,7 +644,7 @@ Child object of property `content` -> `captions`.
 
 This object represents a single video caption file of a video content. The supported formats are described in [Closed Caption / Subtitle Support](https://sdkdocs.roku.com/display/sdkdoc/Closed+Caption+Support).
 
-_Preferred Closed Caption formats:_
+__Preferred Closed Caption formats:__
 
 - WebVTT
 - SRT
