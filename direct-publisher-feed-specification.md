@@ -168,7 +168,7 @@ obligations apply:
 Field|Type|Required|Description
 -----|-----|-----|-----
 tags|string|Required|Include a "kidsdirected" tag into the tags string *all lowercase*
-rating|Rating Object|Required|A parental rating for the content. (MPAA or TV Rating).<br/>- 'Unrated' and "Not Rated" are not accepted ratings for kids directed content
+rating|[Rating Object](#rating)|Required|A parental rating for the content. (MPAA or TV Rating).<br/>- 'Unrated' and "Not Rated" are not accepted ratings for kids directed content
 
 Movie Object Example:
 
@@ -210,10 +210,8 @@ Field|Type|Required|Description
 id|string|Required|Your immutable string reference ID for the live linear stream. THIS CANNOT CHANGE. This should serve as a unique identifier for the live stream across different locales.<br/> **Note**: The ID for an asset must not exceed 50 characters.
 title|string|Required|The live stream's title. Roku uses this value for matching in Roku Search. Please don’t include extra information like year, version label, etc.
 content|[Content Object](#content)|Required|The stream's actual live HLS stream, in the form of a URL. 
-thumbnail|string|Required|The URL of the primary thumbnail for the live stream. This is used within your channel and in search results. Image dimensions must be at least 800x450 (width x height, 16x9 aspect ratio).
- | | |Landscape key art and portrait box cover graphics with the full title of the asset visible in a JPEG file. Image dimensions must be 1920x1080 (width x height, 16x9 aspect ratio) for landscape key art and 532px by 800px (width x height, 2x3 aspect ratio) for portrait box cover.
-brandedThumbnail|string|Required|The URL of the secondary thumbnail for the live stream. This is used as a backup in the event that the primary image is not suitable. Image dimensions must be at least 800x450 (width x height, 16x9 aspect ratio).
- | | |Landscape key art and portrait box cover graphics with the full title of the asset visible in a JPEG file. Image dimensions must be 1920x1080 (width x height, 16x9 aspect ratio) for landscape key art and 532px by 800px (width x height, 2x3 aspect ratio) for portrait box cover.
+thumbnail|string|Required|The URL of the primary thumbnail for the live stream. This is used within your channel and in search results. Image dimensions must be at least 800x450 (width x height, 16x9 aspect ratio).<br/>Landscape key art and portrait box cover graphics with the full title of the asset visible in a JPEG file. Image dimensions must be 1920x1080 (width x height, 16x9 aspect ratio) for landscape key art and 532px by 800px (width x height, 2x3 aspect ratio) for portrait box cover.
+brandedThumbnail|string|Required|The URL of the secondary thumbnail for the live stream. This is used as a backup in the event that the primary image is not suitable. Image dimensions must be at least 800x450 (width x height, 16x9 aspect ratio). <br/>Landscape key art and portrait box cover graphics with the full title of the asset visible in a JPEG file. Image dimensions must be 1920x1080 (width x height, 16x9 aspect ratio) for landscape key art and 532px by 800px (width x height, 2x3 aspect ratio) for portrait box cover.
 shortDescription|string|Required|A live stream description that does not exceed 200 characters. The text will be clipped if longer.
 longDescription|string|Required|A longer live stream description that does not exceed 500 characters. The text will be clipped if longer. Must be different from shortDescription.
 tags|string|Optional|One or more tags (e.g., “dramas”, “korean”, etc.). Each tag is a string and is limited to 20 characters. Tags are used to define what content will be shown within a category and to find content for content curation purposes.
@@ -314,21 +312,21 @@ rating|Rating Object|Required|A parental rating for the content. (MPAA or TV Rat
 
 ---
 
-## series
+## series Content Type
 Child object of root property `series`.
 
 This object represents a series, such as a season of a TV Show or a mini-series.
 
 | Field | Type | Required | Description |
 | ----- | ---- | -------- | ----------- |
-| id | string | Required | Your immutable string reference ID for the series. THIS CANNOT CHANGE. This should serve as a unique identifier for the movie across different locales.
+| id | string | Required | Your immutable string reference ID for the series. THIS CANNOT CHANGE. This should serve as a unique identifier for the movie across different locales.<br/>**Note**: The ID for an asset must not exceed 50 characters.
 | title | string | Required | The title of the series. We use this field for matching in Roku Search.
 | |
 | seasons | [Season Object](#season) | Required* | One or more seasons of the series. Seasons should be used if episodes are grouped by seasons.
 | episodes | [Episode Object](#episode) | Required* | One or more episodes of the series. Episodes should be used if they are not grouped by seasons (e.g., a mini-series).
 | |
 | genres | string | Required | The genre(s) of the series. Must be one of the values listed in [Genres](#genres).
-| thumbnail | string | Required | The URL of the thumbnail for the series. This is used within your channel and in search results. Image dimensions must be at least 800x450 (width x height, 16x9 aspect ratio).
+| thumbnail | string | Required | The URL of the thumbnail for the series. This is used within your channel and in search results. Image dimensions must be at least 800x450 (width x height, 16x9 aspect ratio).<br/>Landscape key art and portrait box cover graphics with the full title of the asset visible in a JPEG file. Image dimensions should be 1920x1080 preferred (width x height, 16x9 aspect ratio) for landscape key art and 532px by 800px preferred (width x height, 2x3 aspect ratio) for portrait box cover.
 | releaseDate | string | Required | The date the series first aired. Used to sort programs chronologically and grouping related content in Roku Search. Conforms to the [ISO 8601](http://www.iso.org/iso/home/standards/iso8601.htm) format: {YYYY}-{MM}-{DD}. E.g.: 2015-11-11
 | shortDescription | string | Required | A description of the series that does not exceed 200 characters. The text will be clipped if longer.
 | longDescription | string | Optional | A longer movie description that does not exceed 500 characters. The text will be clipped if longer. Must be different from shortDescription.
@@ -337,6 +335,19 @@ This object represents a series, such as a season of a TV Show or a mini-series.
 | externalIds | [External ID Object](#externalid) | Optional | One or more third-party metadata provider IDs.
 
 > :information_source: *Must have either `seasons` or `episodes`
+
+### Kids Directed Content
+
+You may NOT submit or distribute content that is directed to children
+unless you have Roku's express written approval. 
+
+If Roku has provided such approval then the following additional
+obligations apply:
+
+Field|Type|Required|Description
+-----|-----|-----|-----
+tags|string|Required|Include a "kidsdirected" tag into the tags string *all lowercase*
+rating|Rating Object|Required|A parental rating for the content. (MPAA or TV Rating).<br/>- 'Unrated' and "Not Rated" are not accepted ratings for kids directed content
 
 Series Object Example (seasons):
 
@@ -378,7 +389,7 @@ Series Object Example (mini-series):
 
 ---
 
-### season
+## season Content Type
 Child object of property `series` -> `seasons`.
 
 This object represents a single season of a series.
@@ -410,12 +421,27 @@ Child object of property:
 
 This object represents a single episode in a series or a season.
 
+### **Episode Ad Guidelines**
+
+_Content length longer than 20 minutes:_
+
+- No adBreaks should be listed during the first 10 minutes of playback
+  - No pre-roll
+- Noted adBreaks should occur during natural scene breaks
+- 10 mins or more between each adBreak
+- No adBreaks within 8 minutes of end credits.
+
+_Content length less than 20 minutes:_
+
+- Please leave this filed blank
+- Content less than 20 minutes with no adBreaks listed will automatically receive a single pre-roll ad
+
 | Field | Type | Required | Description |
 | ----- | ---- | -------- | ----------- |
-| id | string | Required | Your immutable string reference ID for the episode. THIS CANNOT CHANGE. This should serve as a unique identifier for the movie across different locales.
+| id | string | Required | Your immutable string reference ID for the episode. THIS CANNOT CHANGE. This should serve as a unique identifier for the movie across different locales.<br/>**Note**: The ID for an asset must not exceed 50 characters.
 | title | string | Required | Episode title. We use this value for matching in Roku Search. Please don’t include extra information like year, version label, etc.
 | content | [Content Object](#content) | Required | The actual video content, such as the URL of the video file, subtitles, etc.
-| thumbnail | string | Required | The URL of the thumbnail for the episode. This is used within your channel and in search results. Image dimensions must be at least 800x450 (width x height, 16x9 aspect ratio).
+| thumbnail | string | Required | The URL of the thumbnail for the episode. This is used within your channel and in search results. Image dimensions must be at least 800x450 (width x height, 16x9 aspect ratio).<br/>Landscape key art and portrait box cover graphics with the full title of the asset visible in a JPEG file. Image dimensions should be 1920x1080 preferred (width x height, 16x9 aspect ratio) for landscape key art and 532px by 800px preferred (width x height, 2x3 aspect ratio) for portrait box cover.
 | episodeNumber | integer | Required | The sequential episode number. E.g.: 3.
 | releaseDate | string | Required | The date the episode first aired. Used to sort programs chronologically and grouping related content in Roku Search. Conforms to the [ISO 8601](http://www.iso.org/iso/home/standards/iso8601.htm) format: {YYYY}-{MM}-{DD}. E.g.: 2015-11-11
 | shortDescription | string | Required | An episode description that does not exceed 200 characters. The text will be clipped if longer.
@@ -423,6 +449,21 @@ This object represents a single episode in a series or a season.
 | credits | [Credit Object](#credit) | Optional | One or more credits. The cast and crew of the episode.
 | rating | [Rating Object](#rating) | Optional | A parental rating for the content.
 | externalIds | [External ID Object](#externalid) | Optional | One or more third-party metadata provider IDs.
+
+
+
+### Kids Directed Content
+
+You may NOT submit or distribute content that is directed to children
+unless you have Roku's express written approval. 
+
+If Roku has provided such approval then the following additional
+obligations apply:
+
+Field|Type|Required|Description
+-----|-----|-----|-----
+tags|string|Required|Include a "kidsdirected" tag into the tags string *all lowercase*
+rating|Rating Object|Required|A parental rating for the content. (MPAA or TV Rating).<br/>- 'Unrated' and "Not Rated" are not accepted ratings for kids directed content
 
 Episode Object Example:
 
@@ -441,17 +482,18 @@ Episode Object Example:
 
 ---
 
-## shortFormVideo
+## shortFormVideo Content Type
+
 Child object of root property `shortFormVideos`.
 
 Short-form videos are generally less than 20 minutes long, and are not TV Shows or Movies.
 
 | Field | Type | Required | Description |
 | ----- | ---- | -------- | ----------- |
-| id | string | Required | Your immutable string reference ID for the video. THIS CANNOT CHANGE. This should serve as a unique identifier for the movie across different locales.
+| id | string | Required | Your immutable string reference ID for the video. THIS CANNOT CHANGE. This should serve as a unique identifier for the movie across different locales.<br/>**Note**: The ID for an asset must not exceed 50 characters.
 | title | string | Required | Video title. We use this value for matching in Roku Search. Please don’t include extra information like year, version label, etc.
 | content | [Content Object](#content) | Required | The actual video content, such as the URL of the video file, subtitles, etc.
-| thumbnail | string | Required | The URL of the thumbnail for the video. This is used within your channel and in search results. Image dimensions must be at least 800x450 (width x height, 16x9 aspect ratio).
+| thumbnail | string | Required | The URL of the thumbnail for the video. This is used within your channel and in search results. Image dimensions must be at least 800x450 (width x height, 16x9 aspect ratio).<br/>Landscape key art and portrait box cover graphics with the full title of the asset visible in a JPEG file. Image dimensions should be 1920x1080 preferred (width x height, 16x9 aspect ratio) for landscape key art and 532px by 800px preferred (width x height, 2x3 aspect ratio) for portrait box cover.
 | shortDescription | string | Required | A description of the video that does not exceed 200 characters. The text will be clipped if longer.
 | releaseDate | string | Required | The date the video first became available. Used to sort programs chronologically and grouping related content in Roku Search. Optional but very important, we recommend that you provide this. Conforms to the [ISO 8601](http://www.iso.org/iso/home/standards/iso8601.htm) format: {YYYY}-{MM}-{DD}. E.g.: 2015-11-11
 | longDescription | string | Optional | A longer description that does not exceed 500 characters. The text will be clipped if longer. Must be different from shortDescription.
@@ -459,6 +501,11 @@ Short-form videos are generally less than 20 minutes long, and are not TV Shows 
 | genres | string | Optional | The genre(s) of the video. Must be one of the values listed in [Genres](#genres).
 | credits | [Credit Object](#credit) | Optional | One or more credits. The cast and crew of the video.
 | rating | [Rating Object](#rating) | Optional | A parental rating for the content.
+
+ ### **shortForm Ad Guidelines**
+
+- Please leave this filed blank
+- Content less than 20 minutes with no adBreaks listed will automatically receive a single pre-roll ad
 
 Short-form Video Object Example:
 
@@ -477,16 +524,29 @@ Short-form Video Object Example:
 
 ---
 
-## tvSpecial
+## tvSpecial Content Type
 Child object of root property `tvSpecials`.
+
+### **tvSpecial Ad Guidelines**
+
+_Content length longer than 20 minutes:_
+
+- No adBreaks should be listed during the first 10 minutes of playback
+  - No pre-roll
+- Noted adBreaks should occur during natural scene breaks
+- 10 mins or more between each adBreak
+- No adBreaks within 8 minutes of end credits.
+
+_Content length less than 20 minutes:_
+
+- Please leave this filed blank
+- Content less than 20 minutes with no adBreaks listed will automatically receive a single pre-roll ad
 
 | Field | Type | Required | Description |
 | ----- | ---- | -------- | ----------- |
-| id | string | Required | Your immutable string reference ID for the TV Special. THIS CANNOT CHANGE. This should serve as a unique identifier for the movie across different locales.
-| title | string | Required | Episode title. We use this value for matching in Roku Search. Please don’t include extra information like year, version label, etc.
+| id | string | Required | Your immutable string reference ID for the TV Special. THIS CANNOT CHANGE. This should serve as a unique identifier for the movie across different locales.<br/>**Note**: The ID for an asset must not exceed 50 characters.| title | string | Required | Episode title. We use this value for matching in Roku Search. Please don’t include extra information like year, version label, etc.
 | content | [Content Object](#content) | Required | The actual video content, such as the URL of the video file, subtitles, etc.
-| thumbnail | string | Required | The URL of the thumbnail for the TV Special. This is used within your channel and in search results. Image dimensions must be at least 800x450 (width x height, 16x9 aspect ratio).
-| genres | string | Required | The genre(s) of the movie. Must be one of the values listed in [Genres](#genres).
+| thumbnail | string | Required | The URL of the thumbnail for the TV Special. This is used within your channel and in search results. Image dimensions must be at least 800x450 (width x height, 16x9 aspect ratio).<br/>Landscape key art and portrait box cover graphics with the full title of the asset visible in a JPEG file. Image dimensions should be 1920x1080 preferred (width x height, 16x9 aspect ratio) for landscape key art and 532px by 800px preferred (width x height, 2x3 aspect ratio) for portrait box cover.| genres | string | Required | The genre(s) of the movie. Must be one of the values listed in [Genres](#genres).
 | releaseDate | string | Required | The date the TV Special first aired. Used to sort programs chronologically and grouping related content in Roku Search. Conforms to the [ISO 8601](http://www.iso.org/iso/home/standards/iso8601.htm) format: {YYYY}-{MM}-{DD}. E.g.: 2015-11-11
 | shortDescription | string | Required | A description of the special that does not exceed 200 characters. The text will be clipped if longer.
 | longDescription | string | Optional | A longer episode description that does not exceed 500 characters. The text will be clipped if longer. Must be different from shortDescription.
